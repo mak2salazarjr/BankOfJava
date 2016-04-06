@@ -1,5 +1,7 @@
 # Bank of Java
+For humans!
 ## Project and Inheritance Structure
+```
 com.bankofjava
   |
   |- Bank
@@ -8,10 +10,11 @@ com.bankofjava
               |=> com.bankofjava.CheckingAccount
               |
   |
-
+```
 ## Relationships
-  Bank 1-----0..n Customer
-  Customer 1*-----0..n Account
-  Account 0..n-----1 Bank
-
-  *For now, no joint custody accounts.
+```
+Bank 1-----0..n Customer
+Customer 1*-----0..n Account
+Account 0..n-----1 Bank
+```
+*For now, no joint custody accounts.
