@@ -1,0 +1,5 @@
+com.bankofjava
+  |
+  |- Bank
+  |- Customer
+  |- Account
