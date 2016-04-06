@@ -6,13 +6,9 @@
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bankofjava/Bank.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bankofjava/CheckingAccount.java" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/main/java/com/bankofjava/Customer.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/copyright/Richik_and_Nick.xml" />
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/humans/structure.md" />
       <change type="DELETED" beforePath="C:\Users\Owner\code\BankOfJava\humans\structure.txt" afterPath="" />
       <change type="DELETED" beforePath="C:\Users\Owner\code\BankOfJava\src\main\java\Bank.java" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" afterPath="$PROJECT_DIR$/.idea/copyright/profiles_settings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BankOfJava.iws" />
@@ -477,6 +473,13 @@
       <option name="number" value="Default" />
       <updated>1459976058272</updated>
     </task>
+    <task id="LOCAL-00001" summary="New copyright">
+      <created>1459983038174</created>
+      <option name="number" value="00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1459983038174</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -543,6 +546,10 @@
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="New copyright" />
+    <option name="LAST_COMMIT_MESSAGE" value="New copyright" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
