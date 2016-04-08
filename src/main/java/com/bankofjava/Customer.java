@@ -16,9 +16,12 @@ public class Customer {
   private int age;
   private String name;
   private String gender;
+  
+  private List<Double> charges = new ArrayList<>();
+  private List<String> description = new ArrayList<>();
+  
   private List<CheckingAccount> accounts = new ArrayList<>();
   // TODO: add charges list and monthly statements
-
 
   public Customer(int id, String name, int age, String gender) {
     this.customerId = id;
@@ -27,6 +30,14 @@ public class Customer {
     this.gender = gender;
   }
 
+  public String getStatement() {
+	  String statement = "";
+	  for (int i = 0; i < charges.size(); i++){
+		  statement += String.format("%f  |  %s", charges.get(i), description.get(i));
+	  }
+	  return statement;
+  }
+  
   public int getCustomerId() {
     return customerId;
   }
