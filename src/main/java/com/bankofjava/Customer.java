@@ -13,14 +13,18 @@ import java.util.List;
 public class Customer {
 
   private int customerId;
-  // TODO: 4/6/2016 Add traits (Name, age, fico, etc.)
-
+  private int age;
+  private String name;
+  private String gender;
   private List<CheckingAccount> accounts = new ArrayList<>();
   // TODO: add charges list and monthly statements
 
 
-  public Customer(int id) {
+  public Customer(int id, String name, int age, String gender) {
     this.customerId = id;
+    this.name = name;
+    this.age = age;
+    this.gender = gender;
   }
 
   public int getCustomerId() {
@@ -30,7 +34,7 @@ public class Customer {
   public CheckingAccount openAccount(double initialDeposit, String accountName) {
     // TODO: 4/6/2016 Pass accountName to constructor when name feature finished.
     String accId = Integer.toString(getCustomerId()) + Integer.toString(accounts.size());
-    CheckingAccount acc = new CheckingAccount(accId, initialDeposit, this);
+    CheckingAccount acc = new CheckingAccount(accId, initialDeposit, this, accountName);
     accounts.add(acc);
     return acc;
   }

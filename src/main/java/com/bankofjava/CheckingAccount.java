@@ -11,8 +11,8 @@ public class CheckingAccount extends Account {
 
   private String checkNumber;
 
-  public CheckingAccount(String accountId, double initialDeposit, Customer holder) {
-    super(accountId, initialDeposit, holder);
+  public CheckingAccount(String accountId, double initialDeposit, Customer holder, String accountName) {
+    super(accountId, initialDeposit, holder, accountName);
   }
 
   public void withdrawCash(double amount) {

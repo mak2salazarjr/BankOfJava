@@ -14,12 +14,13 @@ public class Account {
   protected double balance = 0;
   protected Customer accountHolder;
 
-  // TODO: Add account names
+  protected String accountName;
 
-  public Account(String accountId, double initialDeposit, Customer holder) {
+  public Account(String accountId, double initialDeposit, Customer holder, String accountName) {
     this.accountId = accountId;
     this.balance = initialDeposit;
     this.accountHolder = holder;
+    this.accountName = accountName;
   }
 
   public double getBalance() {
@@ -28,5 +29,10 @@ public class Account {
 
   public Customer getAccountHolder() {
     return accountHolder;
+  }
+  
+  @Override
+  public String toString() {
+	  return accountId + " " + accountName + " " + accountHolder.getCustomerId();
   }
 }

@@ -19,11 +19,12 @@ public class Bank {
 
     List<Customer> customers = new ArrayList<>(1);
 
-    customers.add(new Customer(customers.size()));
+    customers.add(new Customer(customers.size(), "Jeffrey Blankinson", 19, "Male"));
     Customer myCustomer = customers.get(0);
     System.out.println(myCustomer.getCustomerId());
     
     CheckingAccount acc = myCustomer.openAccount(25.0, "CHECKING");
+    System.out.println(acc);
     System.out.println("acc.getAccountHolder() = " + acc.getAccountHolder());
     System.out.println("acc.getBalance() = " + acc.getBalance());
     acc.withdrawCash(2.0);
