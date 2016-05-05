@@ -17,15 +17,17 @@ public class CheckingAccount extends Account {
 
   public void withdrawCash(double amount) {
     balance -= amount;
+    statement.addItem("Withdrawal", amount * -1D);
     // Overdraft
     if(balance < 0) {
+      statement.addItem("Overdraft fee", -0.05 * amount);
       accountHolder.notifyCustomer("Overdraft, balance currently $" + balance);
-      // TODO: Add double fee to charges list with String description.
     }
   }
 
   public void deposit(double amount) {
     balance += amount;
+    statement.addItem("Deposit", amount);
   }
 
   // TODO: writeCheck method, deposits money in another customer's account

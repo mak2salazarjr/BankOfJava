@@ -17,9 +17,6 @@ public class Customer {
   private String name;
   private String gender;
   
-  private List<Double> charges = new ArrayList<>();
-  private List<String> description = new ArrayList<>();
-  
   private List<CheckingAccount> accounts = new ArrayList<>();
   // TODO: add charges list and monthly statements
 
@@ -29,25 +26,20 @@ public class Customer {
     this.age = age;
     this.gender = gender;
   }
-
-  public String getStatement() {
-	  String statement = "";
-	  for (int i = 0; i < charges.size(); i++){
-		  statement += String.format("%f  |  %s", charges.get(i), description.get(i));
-	  }
-	  return statement;
-  }
   
   public int getCustomerId() {
     return customerId;
   }
 
   public CheckingAccount openAccount(double initialDeposit, String accountName) {
-    // TODO: 4/6/2016 Pass accountName to constructor when name feature finished.
     String accId = Integer.toString(getCustomerId()) + Integer.toString(accounts.size());
     CheckingAccount acc = new CheckingAccount(accId, initialDeposit, this, accountName);
     accounts.add(acc);
     return acc;
+  }
+
+  public Account getAccount(int i) {
+    return accounts.get(i);
   }
 
   public void notifyCustomer(String text) {

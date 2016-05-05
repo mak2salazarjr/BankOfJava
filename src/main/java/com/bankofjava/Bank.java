@@ -13,27 +13,46 @@ import java.util.List;
  */
 public class Bank {
 
-  // TODO: 4/6/2016 Make this a class proper (attributes, etc) 
+  // TODO: 4/6/2016 Make this a class proper (attributes, etc)
+
+  private List<Customer> customers = new ArrayList<>(1);
 
   public static void main(String[] args) {
 
-    List<Customer> customers = new ArrayList<>(1);
+    Bank myBank = new Bank();
+    if(myBank.registerCustomer("Jeffrey Blankinson", 19, "Male")) {
+      Customer myCustomer = myBank.getCustomer(0);
+      System.out.println(myCustomer.getCustomerId());
 
-    customers.add(new Customer(customers.size(), "Jeffrey Blankinson", 19, "Male"));
-    Customer myCustomer = customers.get(0);
-    System.out.println(myCustomer.getCustomerId());
-    
-    CheckingAccount acc = myCustomer.openAccount(25.0, "CHECKING");
-    System.out.println(acc);
-    System.out.println("acc.getAccountHolder() = " + acc.getAccountHolder());
-    System.out.println("acc.getBalance() = " + acc.getBalance());
-    acc.withdrawCash(2.0);
-    System.out.println("acc.getBalance() = " + acc.getBalance());
-    acc.deposit(10.0);
-    System.out.println("acc.getBalance() = " + acc.getBalance());
-    acc.withdrawCash(45.0);
-    System.out.println("acc.getBalance() = " + acc.getBalance());
+      CheckingAccount acc = myCustomer.openAccount(25.0, "CHECKING");
+      System.out.println(acc);
+      System.out.println("acc.getAccountHolder() = " + acc.getAccountHolder());
+      System.out.println("acc.getBalance() = " + acc.getBalance());
+      acc.withdrawCash(2.0);
+      System.out.println("acc.getBalance() = " + acc.getBalance());
+      acc.deposit(10.0);
+      System.out.println("acc.getBalance() = " + acc.getBalance());
+      acc.withdrawCash(45.0);
+      System.out.println("acc.getBalance() = " + acc.getBalance());
+      System.out.println(myCustomer.getAccount(0).getStatement());
+    }
 
+  }
+
+  public List<Customer> getCustomers() {
+    return customers;
+  }
+
+  public boolean registerCustomer(String name, int age, String gender) {
+    if(age >= 18) {
+      customers.add(new Customer(customers.size(), name, age, gender));
+      return true;
+    }
+    return false;
+  }
+
+  public Customer getCustomer(int customerId) {
+    return getCustomers().get(customerId);
   }
 
 }
