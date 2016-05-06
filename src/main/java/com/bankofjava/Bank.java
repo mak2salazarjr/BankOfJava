@@ -34,7 +34,10 @@ public class Bank {
       System.out.println("acc.getBalance() = " + acc.getBalance());
       acc.withdrawCash(45.0);
       System.out.println("acc.getBalance() = " + acc.getBalance());
-      System.out.println(myCustomer.getAccount(0).getStatement());
+      System.out.println("");
+      System.out.println("Statement:");
+      System.out.println("");
+      System.out.println(myCustomer.getConsolidatedStatements());
     }
 
   }

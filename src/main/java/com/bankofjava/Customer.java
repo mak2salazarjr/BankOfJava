@@ -42,6 +42,20 @@ public class Customer {
     return accounts.get(i);
   }
 
+  public String getName() {
+    return name;
+  }
+
+  public String getConsolidatedStatements() {
+    String fullStatement = String.format("#%d %s%n", getCustomerId(), getName().toUpperCase());
+    fullStatement += Statement.loopChar('-', fullStatement.length());
+    fullStatement += System.lineSeparator();
+    for (Account a : accounts) {
+      fullStatement += a.getStatement();
+    }
+    return fullStatement;
+  }
+
   public void notifyCustomer(String text) {
     System.out.println("New Notification - " + text);
   }

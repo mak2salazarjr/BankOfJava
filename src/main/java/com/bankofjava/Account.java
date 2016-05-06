@@ -25,6 +25,14 @@ public class Account {
     this.statement = new Statement(this);
   }
 
+  public String getAccountId() {
+    return accountId;
+  }
+
+  public String getAccountName() {
+    return accountName;
+  }
+
   public double getBalance() {
     return balance;
   }

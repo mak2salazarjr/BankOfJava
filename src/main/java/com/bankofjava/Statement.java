@@ -37,6 +37,14 @@ public class Statement extends ArrayList<StatementItem> {
     return String.format("%1$" + n + "s", s);
   }
 
+  public static String loopChar(char c, int n) {
+    StringBuilder builder = new StringBuilder();
+    for (int i = 0; i < n; i++) {
+      builder.append(c);
+    }
+    return builder.toString();
+  }
+
   @Override
   public String toString() {
     int maxLengthD = 0;
@@ -50,6 +58,11 @@ public class Statement extends ArrayList<StatementItem> {
       }
     }
     StringBuilder statement = new StringBuilder();
+    statement.append(account.getAccountId());
+    statement.append(" " + account.getAccountName());
+    statement.append(System.lineSeparator());
+    statement.append(Statement.loopChar('-', maxLengthC + maxLengthD + 8));
+    statement.append(System.lineSeparator());
     for (int i = 0; i < this.size(); i++) {
       statement.append(" " + i + " |");
       statement.append(" " + Statement.padRight(this.getDescription(i), maxLengthD) + " |");
