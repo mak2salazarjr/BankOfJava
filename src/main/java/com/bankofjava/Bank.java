@@ -22,8 +22,11 @@ public class Bank {
   public static void main(String[] args) {
 
     Bank myBank = new Bank();
-    if(myBank.registerCustomer("Jeffrey Blankinson", 19, "Male")) {
-      Customer myCustomer = myBank.getCustomer(0);
+    String customerId;
+
+    try {
+      customerId = myBank.registerCustomer("Jeffrey Blankinson", 19, "Male");
+      Customer myCustomer = myBank.getCustomer(customerId);
       System.out.println(myCustomer.getCustomerId());
 
       CheckingAccount acc = myCustomer.openAccount(25.0, "CHECKING");
@@ -40,6 +43,9 @@ public class Bank {
       System.out.println("Statement:");
       System.out.println("");
       System.out.println(myCustomer.getConsolidatedStatements());
+
+    } catch (Exception e) {
+      e.printStackTrace();
     }
 
   }
@@ -48,18 +54,18 @@ public class Bank {
     return customers;
   }
 
-  public boolean registerCustomer(String name, int age, String gender) {
+  public String registerCustomer(String name, int age, String gender) throws Exception {
     if(age >= 18) {
-      String customerId = String.valueOf(Math.floor(Math.random() * 100000));
+      String customerId = String.valueOf((int) Math.floor(Math.random() * 100000));
       while(customers.containsKey(customerId))
         customerId = String.valueOf(Math.floor(Math.random() * 100000));
       customers.put(customerId, new Customer(customerId, name, age, gender));
-      return true;
+      return customerId;
     }
-    return false;
+    throw new Exception("Customer is underage.");
   }
 
-  public Customer getCustomer(int customerId) {
+  public Customer getCustomer(String customerId) {
     return getCustomers().get(customerId);
   }
 

@@ -46,7 +46,7 @@ public class Customer {
   }
 
   public String getConsolidatedStatements() {
-    String fullStatement = String.format("#%d %s%n", getCustomerId(), getName().toUpperCase());
+    String fullStatement = String.format("#%s %s%n", getCustomerId(), getName().toUpperCase());
     fullStatement += Statement.loopChar('-', fullStatement.length());
     fullStatement += System.lineSeparator();
     for (Account a : accounts) {
