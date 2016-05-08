@@ -7,7 +7,7 @@ package com.bankofjava;
 import java.util.ArrayList;
 
 /**
- * Created by Richik SC on 5/5/2016.
+ * A statement class.
  */
 public class Statement extends ArrayList<StatementItem> {
 

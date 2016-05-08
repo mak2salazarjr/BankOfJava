@@ -5,7 +5,9 @@
 package com.bankofjava;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Richik SC on 4/6/2016.
@@ -15,7 +17,7 @@ public class Bank {
 
   // TODO: 4/6/2016 Make this a class proper (attributes, etc)
 
-  private List<Customer> customers = new ArrayList<>(1);
+  private Map<String, Customer> customers = new HashMap<>(1);
 
   public static void main(String[] args) {
 
@@ -42,13 +44,16 @@ public class Bank {
 
   }
 
-  public List<Customer> getCustomers() {
+  public Map<String, Customer> getCustomers() {
     return customers;
   }
 
   public boolean registerCustomer(String name, int age, String gender) {
     if(age >= 18) {
-      customers.add(new Customer(customers.size(), name, age, gender));
+      String customerId = String.valueOf(Math.floor(Math.random() * 100000));
+      while(customers.containsKey(customerId))
+        customerId = String.valueOf(Math.floor(Math.random() * 100000));
+      customers.put(customerId, new Customer(customerId, name, age, gender));
       return true;
     }
     return false;

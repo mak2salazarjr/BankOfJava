@@ -8,31 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Richik SC on 4/6/2016.
+ * A class representing the customer.
  */
 public class Customer {
 
-  private int customerId;
+  private String customerId;
   private int age;
   private String name;
   private String gender;
   
   private List<CheckingAccount> accounts = new ArrayList<>();
-  // TODO: add charges list and monthly statements
 
-  public Customer(int id, String name, int age, String gender) {
+  public Customer(String id, String name, int age, String gender) {
     this.customerId = id;
     this.name = name;
     this.age = age;
     this.gender = gender;
   }
   
-  public int getCustomerId() {
+  public String getCustomerId() {
     return customerId;
   }
 
   public CheckingAccount openAccount(double initialDeposit, String accountName) {
-    String accId = Integer.toString(getCustomerId()) + Integer.toString(accounts.size());
+    String accId = getCustomerId() + Integer.toString(accounts.size());
     CheckingAccount acc = new CheckingAccount(accId, initialDeposit, this, accountName);
     accounts.add(acc);
     return acc;
