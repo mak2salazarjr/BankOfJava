@@ -59,7 +59,7 @@ public class Statement extends ArrayList<StatementItem> {
     }
     StringBuilder statement = new StringBuilder();
     statement.append(account.getAccountId());
-    statement.append(" " + account.getAccountName());
+    statement.append(" " + account.getName());
     statement.append(System.lineSeparator());
     statement.append(Statement.loopChar('-', maxLengthC + maxLengthD + 8));
     statement.append(System.lineSeparator());
