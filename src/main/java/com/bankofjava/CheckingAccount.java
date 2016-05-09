@@ -21,7 +21,7 @@ public class CheckingAccount extends Account {
     // Overdraft
     if(balance < 0) {
       statement.addItem("Overdraft fee", -0.05 * amount);
-      accountHolder.notifyCustomer("Overdraft, balance currently $" + balance);
+      holder.notifyCustomer("Overdraft, balance currently $" + balance);
     }
   }
 

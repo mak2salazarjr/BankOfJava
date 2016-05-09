@@ -12,16 +12,16 @@ public class Account {
 
   protected String accountId;
   protected double balance = 0;
-  protected Customer accountHolder;
+  protected Customer holder;
   protected Statement statement;
 
-  protected String accountName;
+  protected String name;
 
-  public Account(String accountId, double initialDeposit, Customer holder, String accountName) {
+  public Account(String accountId, double initialDeposit, Customer holder, String name) {
     this.accountId = accountId;
     this.balance = initialDeposit;
-    this.accountHolder = holder;
-    this.accountName = accountName;
+    this.holder = holder;
+    this.name = name;
     this.statement = new Statement(this);
   }
 
@@ -29,16 +29,16 @@ public class Account {
     return accountId;
   }
 
-  public String getAccountName() {
-    return accountName;
+  public String getName() {
+    return name;
   }
 
   public double getBalance() {
     return balance;
   }
 
-  public Customer getAccountHolder() {
-    return accountHolder;
+  public Customer getHolder() {
+    return holder;
   }
 
   public Statement getStatement() {
@@ -47,6 +47,6 @@ public class Account {
 
   @Override
   public String toString() {
-	  return accountId + " " + accountName + " " + accountHolder.getCustomerId();
+	  return accountId + " " + name + " " + holder.getCustomerId();
   }
 }
