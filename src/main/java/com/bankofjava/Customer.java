@@ -7,7 +7,9 @@ package com.bankofjava;
 import com.bankofjava.exceptions.AccountNotFoundException;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * A class representing the customer.
@@ -73,7 +75,31 @@ public class Customer {
     return (Account[]) accounts.values().toArray();
   }
 
+  public String getPassword() {
+    return password;
+  }
+
   public void notifyCustomer(String text) {
     System.out.println("New Notification - " + text);
+  }
+
+  @Override
+  public String toString() {
+    String obj =  "{" +
+        "id: " + getCustomerId() + "," +
+        "name: " + getName() + "," +
+        "age: " + this.age + "," +
+        "gender: " + this.gender + "," +
+        "accounts: [";
+    Set keys = accounts.keySet();
+    for(Iterator it = keys.iterator(); it.hasNext();) {
+      obj += it.next();
+      if(it.hasNext()) {
+        obj += ",";
+      }
+
+    }
+    obj += "]}";
+    return obj;
   }
 }
