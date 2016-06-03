@@ -1,0 +1,19 @@
+0CC7AA85 CHECKING C17A2ED36C747BB4
+acc.getHolder() = {id: C17A2ED36C747BB4,name: Jeffrey Blankinson,age: 32,gender: Male,accounts: [0CC7AA85]}
+acc.getBalance() = 25.0
+Withdrawing 2 dollars
+acc.getBalance() = 23.0
+acc.getBalance() = 33.0
+acc.getBalance() = -12.0
+
+Statement:
+
+#C17A2ED36C747BB4 JEFFREY BLANKINSON
+--------------------------------------
+0CC7AA85 CHECKING
+--------------------------
+ 0 | Withdrawal    |  -2.0 
+ 1 | Deposit       |  10.0 
+ 2 | Withdrawal    | -45.0 
+ 3 | Overdraft fee | -2.25 
+   | TOTAL BALANCE | -12.0 
