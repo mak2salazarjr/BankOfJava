@@ -1,5 +1,5 @@
-0CC7AA85 CHECKING C17A2ED36C747BB4
-acc.getHolder() = {id: C17A2ED36C747BB4,name: Jeffrey Blankinson,age: 32,gender: Male,accounts: [0CC7AA85]}
+1884728D CHECKING ED251A501FB5CF92
+acc.getHolder() = {id: ED251A501FB5CF92,name: Jeffrey Blankinson,age: 32,gender: Male,accounts: [1884728D]}
 acc.getBalance() = 25.0
 Withdrawing 2 dollars
 acc.getBalance() = 23.0
@@ -8,9 +8,9 @@ acc.getBalance() = -12.0
 
 Statement:
 
-#C17A2ED36C747BB4 JEFFREY BLANKINSON
+#ED251A501FB5CF92 JEFFREY BLANKINSON
 --------------------------------------
-0CC7AA85 CHECKING
+1884728D CHECKING
 --------------------------
  0 | Withdrawal    |  -2.0 
  1 | Deposit       |  10.0 
