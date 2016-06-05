@@ -22,7 +22,7 @@ public class MainTest {
     Bank myBank = new Bank();
     String customerId;
 
-    try {
+    try ( TestOut out = new TestOut("test.log") ) {
 
       // Creating and retrieving our customer
       customerId = myBank.registerCustomer("Jeffrey Blankinson", 32, "Male", "thisIsMyPassword");
@@ -32,48 +32,27 @@ public class MainTest {
       CheckingAccount acc = myCustomer.openAccount(25.0, "CHECKING");
 
       // Basic account properties
-      MainTest.println(acc);
-      MainTest.println("acc.getHolder() = " + acc.getHolder());
-      MainTest.println("acc.getBalance() = " + acc.getBalance());
+      out.println(acc);
+      out.println("acc.getHolder() = " + acc.getHolder());
+      out.println("acc.getBalance() = " + acc.getBalance());
       acc.withdrawCash(2.0);
-      MainTest.println("Withdrawing 2 dollars");
-      MainTest.println("acc.getBalance() = " + acc.getBalance());
+      out.println("Withdrawing 2 dollars");
+      out.println("acc.getBalance() = " + acc.getBalance());
       acc.deposit(10.0);
-      MainTest.println("acc.getBalance() = " + acc.getBalance());
+      out.println("acc.getBalance() = " + acc.getBalance());
       acc.withdrawCash(45.0);
-      MainTest.println("acc.getBalance() = " + acc.getBalance());
-      MainTest.println("");
+      out.println("acc.getBalance() = " + acc.getBalance());
+      out.println("");
 
       // Statements printing
-      MainTest.println("Statement:");
-      MainTest.println("");
-      MainTest.println(myCustomer.getConsolidatedStatements());
-
-      //  MainTest.println(myCustomer.getAccountByName("SAVINGS")); // Should throw exception
+      out.println("Statement:");
+      out.println("");
+      out.println(myCustomer.getConsolidatedStatements());
 
     } catch (Exception e) {
       e.printStackTrace();
     }
 
-  }
-
-  public static void println(Object in) {
-    String toPrint = in.toString();
-    System.out.println();
-    File log = new File("test_log.txt");
-    if(!log.isFile())
-      try {
-        log.createNewFile();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-    try {
-      PrintWriter printWriter = new PrintWriter(new BufferedWriter(new FileWriter(log, true)));
-      printWriter.println(toPrint);
-      printWriter.close();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
   
 }
