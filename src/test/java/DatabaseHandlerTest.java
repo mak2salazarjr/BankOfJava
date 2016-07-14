@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Created by Richik SC on 7/13/2016.
+ * Test for the database handler
  */
 public class DatabaseHandlerTest {
 
