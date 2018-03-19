@@ -2,15 +2,9 @@
  * Copyright (c) 2016 Richik Sinha Choudhury and Nick Dimitrov
  */
 
-import com.bankofjava.CheckingAccount;
-import com.bankofjava.Customer;
+import com.bankofjava.domain.CheckingAccount;
+import com.bankofjava.domain.Customer;
 import com.bankofjava.Bank;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
 
 /**
  * The test driver program to squeeze everything out of the classes.

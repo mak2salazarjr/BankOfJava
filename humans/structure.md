@@ -7,7 +7,7 @@ com.bankofjava
   |- Bank
   |- Customer
   |- Account >|
-              |=> com.bankofjava.CheckingAccount
+              |=> com.bankofjava.domain.CheckingAccount
               |
   |
 ```

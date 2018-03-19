@@ -1,8 +1,8 @@
 /*
- * Copyright (c) 2016 Richik Sinha Choudhury and Nick Dimitrov
+ * Copyright (c) 2018 Richik Sinha Choudhury and Nick Dimitrov
  */
 
-package com.bankofjava;
+package com.bankofjava.domain;
 
 import java.util.ArrayList;
 

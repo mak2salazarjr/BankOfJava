@@ -1,10 +1,11 @@
 /*
- * Copyright (c) 2016 Richik Sinha Choudhury and Nick Dimitrov
+ * Copyright (c) 2018 Richik Sinha Choudhury and Nick Dimitrov
  */
 
-package com.bankofjava;
+package com.bankofjava.domain;
 
-import com.bankofjava.exceptions.AccountNotFoundException;
+import com.bankofjava.Bank;
+import com.bankofjava.exception.AccountNotFoundException;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +15,7 @@ import java.util.Set;
 /**
  * A class representing the customer.
  */
+
 public class Customer {
 
   private String customerId;

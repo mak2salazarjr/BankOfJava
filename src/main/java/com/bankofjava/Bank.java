@@ -4,12 +4,17 @@
 
 package com.bankofjava;
 
-import com.bankofjava.exceptions.CustomerIsInvalidException;
-import com.sun.org.apache.xerces.internal.impl.dv.util.HexBin;
+import com.bankofjava.exception.CustomerIsInvalidException;
+import com.bankofjava.domain.Customer;
+import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,16 +22,40 @@ import java.util.Map;
 import java.util.Random;
 
 /**
- * Created by Richik SC on 4/6/2016.
+ * Created by Richik SC and Nick Dimitrov on 4/6/2016.
  * The main bank class.
  */
 public class Bank {
 
   private Map<String, Customer> customers = new HashMap<>(1);
   private List<String> accountIds = new ArrayList<>(1);
+  private Connection conn;
 
-  public Map<String, Customer> getCustomers() {
-    return customers;
+  public Bank() throws SQLException {
+    MysqlDataSource source = new MysqlDataSource();
+    source.setServerName("localhost");
+    source.setPort(3306);
+    source.setUser("admin");
+    source.setPassword("@16&db101#");
+    source.setDatabaseName("bank_of_java");
+    conn = source.getConnection();
+  }
+
+  public Customer[] getCustomers() throws SQLException {
+    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers");
+    ResultSet rs = stmt.executeQuery();
+    List<Customer> customers = new ArrayList<>();
+    while (rs.next()) {
+      customers.add(new Customer(
+          rs.getString("id"),
+          rs.getString("fname") + " " + rs.getString("lname"),
+          rs.getInt("age"),
+          rs.getString("gender"),
+          rs.getString("password"),
+          this
+      ));
+    }
+    return customers.toArray(new Customer[customers.size()]);
   }
 
   public String registerCustomer(String name, int age, String gender, String password) throws
@@ -61,13 +90,26 @@ public class Bank {
   }
 
   public Customer getCustomer(String customerId, String password) throws Exception {
-    Customer cust = getCustomers().get(customerId);
-    if (cust.getPassword().equals(shaHash(password))) {
-      return cust;
+    PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE id = ?");
+    stmt.setString(1, customerId);
+    ResultSet rs = stmt.executeQuery();
+    if (rs.next()) {
+      Customer cust = new Customer(
+          rs.getString("id"),
+          rs.getString("fname") + " " + rs.getString("lname"),
+          rs.getInt("age"),
+          rs.getString("gender"),
+          rs.getString("password"),
+          this
+      );
+      if (cust.getPassword().equals(shaHash(password))) {
+        return cust;
+      } else {
+        throw new Exception("Wrong password!");
+      }
     } else {
-      throw new Exception("Wrong password!");
+      throw new NullPointerException();
     }
-
   }
 
   public static String shaHash(String toCrypt) throws NoSuchAlgorithmException {

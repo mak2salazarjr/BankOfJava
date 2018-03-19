@@ -2,7 +2,7 @@
  * Copyright (c) 2016 Richik Sinha Choudhury and Nick Dimitrov
  */
 
-package com.bankofjava.exceptions;
+package com.bankofjava.exception;
 
 /**
  * Created by Richik SC on 5/9/2016.

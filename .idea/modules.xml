@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/BankOfJava.iml" filepath="$PROJECT_DIR$/.idea/BankOfJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BankOfJava.iml" filepath="$PROJECT_DIR$/.idea/modules/BankOfJava.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BankOfJava_main.iml" filepath="$PROJECT_DIR$/.idea/modules/BankOfJava_main.iml" group="BankOfJava" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/BankOfJava_test.iml" filepath="$PROJECT_DIR$/.idea/modules/BankOfJava_test.iml" group="BankOfJava" />
     </modules>
   </component>
 </project>
