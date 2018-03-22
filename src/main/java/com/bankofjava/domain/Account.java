@@ -4,18 +4,30 @@
 
 package com.bankofjava.domain;
 
+import javax.persistence.*;
+
 /**
- * Created by Richik SC on 4/6/2016.
+ * Created by Richik SC and Nick Dimitrov on 4/6/2016.
  * A simple account
  */
+
+@Entity
 public class Account {
 
+  @Id
+  @Basic(optional = false)
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  @Column(name = "id")
   protected String accountId;
-  protected double balance = 0;
-  protected Customer holder;
-  protected Statement statement;
 
-  protected String name;
+  @Column protected double balance = 0;
+  @Column protected String name;
+
+  @ManyToOne
+  @JoinColumn(name = "customer_id")
+  protected Customer holder;
+
+  @Transient protected Statement statement;
 
   public Account(String accountId, double initialDeposit, Customer holder, String name) {
     this.accountId = accountId;

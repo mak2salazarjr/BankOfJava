@@ -26,22 +26,14 @@ import java.util.Random;
  * The main bank class.
  */
 public class Bank {
+  
+  private static final Bank INSTANCE = new Bank();
 
-  private Map<String, Customer> customers = new HashMap<>(1);
-  private List<String> accountIds = new ArrayList<>(1);
-  private Connection conn;
-
-  public Bank() throws SQLException {
-    MysqlDataSource source = new MysqlDataSource();
-    source.setServerName("localhost");
-    source.setPort(3306);
-    source.setUser("admin");
-    source.setPassword("@16&db101#");
-    source.setDatabaseName("bank_of_java");
-    conn = source.getConnection();
+  public static Bank getInstance() {
+    return INSTANCE;
   }
 
-  public Customer[] getCustomers() throws SQLException {
+  /*public Customer[] getCustomers() throws SQLException {
     PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers");
     ResultSet rs = stmt.executeQuery();
     List<Customer> customers = new ArrayList<>();
@@ -72,24 +64,24 @@ public class Bank {
       }
     }
     throw new CustomerIsInvalidException(CustomerIsInvalidException.Reason.IS_UNDERAGE);
-  }
+  }*/
 
-  public String generateCustomerId() {
+  /*public String generateCustomerId() {
     String customerId = lenRandHexString(16).toUpperCase();
     while (customers.containsKey(customerId))
       customerId = lenRandHexString(16).toUpperCase();
     return customerId;
-  }
+  }*/
 
-  public String generateAccountId() {
+  /*public String generateAccountId() {
     String accountId = lenRandHexString(8).toUpperCase();
     while (accountIds.contains(accountId))
       accountId = lenRandHexString(8).toUpperCase();
     accountIds.add(accountId);
     return accountId;
-  }
+  }*/
 
-  public Customer getCustomer(String customerId, String password) throws Exception {
+  /*public Customer getCustomer(String customerId, String password) throws Exception {
     PreparedStatement stmt = conn.prepareStatement("SELECT * FROM customers WHERE id = ?");
     stmt.setString(1, customerId);
     ResultSet rs = stmt.executeQuery();
@@ -110,7 +102,7 @@ public class Bank {
     } else {
       throw new NullPointerException();
     }
-  }
+  }*/
 
   public static String shaHash(String toCrypt) throws NoSuchAlgorithmException {
     MessageDigest md = MessageDigest.getInstance("SHA-256");

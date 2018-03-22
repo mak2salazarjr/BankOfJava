@@ -7,6 +7,7 @@ package com.bankofjava.domain;
 import com.bankofjava.Bank;
 import com.bankofjava.exception.AccountNotFoundException;
 
+import javax.persistence.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -16,36 +17,44 @@ import java.util.Set;
  * A class representing the customer.
  */
 
+@Entity
 public class Customer {
 
+  @Id
+  @Basic(optional = false)
+  @GeneratedValue(strategy = GenerationType.TABLE)
+  @Column(name = "id")
   private String customerId;
-  private int age;
-  private String name;
-  private String gender;
-  private String password;
-  private Bank bank;
-  
-  private Map<String, CheckingAccount> accounts = new HashMap<>();
 
-  public Customer(String id, String name, int age, String gender, String password, Bank bank) {
+  @Column private int age;
+  @Column private String name;
+  @Column private String gender;
+  @Column private String password;
+  @Transient private Bank bank;
+
+  @OneToMany(mappedBy = "holder")
+  @MapKey(name = "accountId")
+  private Map<String, Account> accounts = new HashMap<>();
+
+  public Customer(String id, String name, int age, String gender, String password) {
     this.customerId = id;
     this.name = name;
     this.age = age;
     this.gender = gender;
     this.password = password;
-    this.bank = bank;
+    this.bank = Bank.getInstance();
   }
   
   public String getCustomerId() {
     return customerId;
   }
 
-  public CheckingAccount openAccount(double initialDeposit, String accountName) {
+  /*public CheckingAccount openAccount(double initialDeposit, String accountName) {
     String accId = bank.generateAccountId();
     CheckingAccount acc = new CheckingAccount(accId, initialDeposit, this, accountName);
     accounts.put(accId, acc);
     return acc;
-  }
+  }*/
 
   public Account getAccount(String accountId) {
     return accounts.get(accountId);
@@ -62,6 +71,7 @@ public class Customer {
   public String getName() {
     return name;
   }
+
 
   public String getConsolidatedStatements() {
     String fullStatement = String.format("#%s %s%n", getCustomerId(), getName().toUpperCase());
@@ -87,17 +97,17 @@ public class Customer {
 
   @Override
   public String toString() {
-    String obj =  "{" +
-        "id: " + getCustomerId() + "," +
-        "name: " + getName() + "," +
-        "age: " + this.age + "," +
-        "gender: " + this.gender + "," +
-        "accounts: [";
+    String obj =  "{\n" +
+        "id: " + getCustomerId() + ",\n" +
+        "name: " + getName() + ",\n" +
+        "age: " + this.age + ",\n" +
+        "gender: " + this.gender + "n" +
+        "accounts: [\n";
     Set keys = accounts.keySet();
     for(Iterator it = keys.iterator(); it.hasNext();) {
       obj += it.next();
       if(it.hasNext()) {
-        obj += ",";
+        obj += ",\n";
       }
 
     }
