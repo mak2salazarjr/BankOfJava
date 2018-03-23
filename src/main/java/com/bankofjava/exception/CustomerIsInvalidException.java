@@ -4,9 +4,14 @@
 
 package com.bankofjava.exception;
 
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
 /**
- * Created by Richik SC on 5/9/2016.
+ * Created by Richik SC and NickDim on 5/9/2016.
  */
+
+@ResponseStatus(value = HttpStatus.FORBIDDEN)
 public class CustomerIsInvalidException extends Exception {
   private CustomerIsInvalidException.Reason reason;
 

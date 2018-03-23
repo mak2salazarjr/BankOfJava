@@ -4,7 +4,9 @@
 
 package com.bankofjava.domain;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * A statement class.
@@ -21,6 +23,10 @@ public class Statement extends ArrayList<StatementItem> {
     return this.add(new StatementItem(desc, charge));
   }
 
+  public boolean addItem(String desc, double charge, Date time) {
+    return this.add(new StatementItem(desc, charge, time));
+  }
+
   public String getDescription(int index) {
     return this.get(index).getDescription();
   }
@@ -29,12 +35,16 @@ public class Statement extends ArrayList<StatementItem> {
     return this.get(index).getCharge();
   }
 
+  public Date getTime(int index) {
+    return this.get(index).getTime();
+  }
+
   public static String padRight(String s, int n) {
-    return String.format("%1$-" + n + "s", s);
+    return String.format("%-" + n + "s", s);
   }
 
   public static String padLeft(String s, int n) {
-    return String.format("%1$" + n + "s", s);
+    return String.format("%" + n + "s", s);
   }
 
   public static String loopChar(char c, int n) {
@@ -53,7 +63,7 @@ public class Statement extends ArrayList<StatementItem> {
       if (i.getDescription().length() > maxLengthD) {
         maxLengthD = i.getDescription().length();
       }
-      if (Double.toString(i.getCharge()).length() > maxLengthC) {
+      if (String.format("%.2f", i.getCharge()).length() > maxLengthC) {
         maxLengthC = Double.toString(i.getCharge()).length();
       }
     }
@@ -61,11 +71,13 @@ public class Statement extends ArrayList<StatementItem> {
     statement.append(account.getAccountId());
     statement.append(" " + account.getName());
     statement.append(System.lineSeparator());
-    statement.append(Statement.loopChar('-', maxLengthC + maxLengthD + 8));
+    statement.append(Statement.loopChar('-', maxLengthC + maxLengthD + 26));
     statement.append(System.lineSeparator());
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     for (int i = 0; i < this.size(); i++) {
       statement.append(" " + i + " |");
       statement.append(" " + Statement.padRight(this.getDescription(i), maxLengthD) + " |");
+      statement.append(" " + sdf.format(this.getTime(i)) + " |");
       statement.append(" " + Statement.padLeft(Double.toString(this.getCharge(i)), maxLengthC) +
           " ");
       statement.append(System.lineSeparator());

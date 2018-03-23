@@ -6,6 +6,9 @@ package com.bankofjava.domain;
 
 import com.bankofjava.Bank;
 import com.bankofjava.exception.AccountNotFoundException;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -22,9 +25,9 @@ public class Customer {
 
   @Id
   @Basic(optional = false)
-  @GeneratedValue(strategy = GenerationType.TABLE)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE)
   @Column(name = "id")
-  private String customerId;
+  private int customerId;
 
   @Column private int age;
   @Column private String name;
@@ -34,9 +37,10 @@ public class Customer {
 
   @OneToMany(mappedBy = "holder")
   @MapKey(name = "accountId")
+  @JsonManagedReference
   private Map<String, Account> accounts = new HashMap<>();
 
-  public Customer(String id, String name, int age, String gender, String password) {
+  public Customer(int id, String name, int age, String gender, String password) {
     this.customerId = id;
     this.name = name;
     this.age = age;
@@ -44,17 +48,24 @@ public class Customer {
     this.password = password;
     this.bank = Bank.getInstance();
   }
+
+  public Customer() {
+    this.bank = Bank.getInstance();
+  }
   
-  public String getCustomerId() {
+  public int getCustomerId() {
     return customerId;
   }
 
-  /*public CheckingAccount openAccount(double initialDeposit, String accountName) {
-    String accId = bank.generateAccountId();
-    CheckingAccount acc = new CheckingAccount(accId, initialDeposit, this, accountName);
-    accounts.put(accId, acc);
+  public Account openAccount(double initialDeposit, String accountName) {
+    Account acc = new Account();
+    acc.setName(accountName);
+    acc.setBalance(initialDeposit);
+    acc.setHolder(this);
+    System.out.println(acc.getAccountId());
+    accounts.put(acc.getAccountId(), acc);
     return acc;
-  }*/
+  }
 
   public Account getAccount(String accountId) {
     return accounts.get(accountId);
@@ -73,22 +84,49 @@ public class Customer {
   }
 
 
+  @JsonIgnore
   public String getConsolidatedStatements() {
-    String fullStatement = String.format("#%s %s%n", getCustomerId(), getName().toUpperCase());
-    fullStatement += Statement.loopChar('-', fullStatement.length());
-    fullStatement += System.lineSeparator();
+    StringBuilder fullStatement = new StringBuilder();
+    fullStatement.append(String.format("#%s %s%n", getCustomerId(), getName().toUpperCase()));
+    fullStatement.append(Statement.loopChar('-', fullStatement.length()));
+    fullStatement.append(System.lineSeparator());
     for (Account a : accounts.values()) {
-      fullStatement += a.getStatement();
+      fullStatement.append(a.getStatement().toString());
     }
-    return fullStatement;
+    return fullStatement.toString();
+  }
+
+  @JsonIgnore
+  public Map<String, Statement> getStatements() {
+    Map<String, Statement> statements = new HashMap<>();
+    for (Account acc : accounts.values()) {
+      statements.put(acc.getAccountId(), acc.getStatement());
+    }
+    return statements;
   }
 
   public Account[] getAccounts() {
-    return (Account[]) accounts.values().toArray();
+    return accounts.values().toArray(new Account[accounts.size()]);
   }
 
   public String getPassword() {
     return password;
+  }
+
+  public void setAge(int age) {
+    this.age = age;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setGender(String gender) {
+    this.gender = gender;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
   public void notifyCustomer(String text) {

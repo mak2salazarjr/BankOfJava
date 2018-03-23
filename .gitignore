@@ -14,6 +14,7 @@ bin/
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+application.properties
 
 # Gradle:
 .idea/**/gradle.xml
