@@ -8,7 +8,6 @@ import com.bankofjava.Bank;
 import com.bankofjava.exception.AccountNotFoundException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -81,19 +80,6 @@ public class Customer {
 
   public String getName() {
     return name;
-  }
-
-
-  @JsonIgnore
-  public String getConsolidatedStatements() {
-    StringBuilder fullStatement = new StringBuilder();
-    fullStatement.append(String.format("#%s %s%n", getCustomerId(), getName().toUpperCase()));
-    fullStatement.append(Statement.loopChar('-', fullStatement.length()));
-    fullStatement.append(System.lineSeparator());
-    for (Account a : accounts.values()) {
-      fullStatement.append(a.getStatement().toString());
-    }
-    return fullStatement.toString();
   }
 
   @JsonIgnore
