@@ -1,5 +1,6 @@
 build/
 bin/
+out/
 
 .idea/vcs.xml
 # User-specific stuff:
