@@ -3,10 +3,13 @@
  */
 
 package com.bankofjava.domain;
+
 /**
  * Created by Richik SC on 4/6/2016.
  * A simple checking account
  */
+
+@Deprecated
 public class CheckingAccount extends Account {
 
   private String checkNumber;
@@ -29,7 +32,5 @@ public class CheckingAccount extends Account {
     balance += amount;
     statement.addItem("Deposit", amount);
   }
-
-  // TODO: writeCheck method, deposits money in another customer's account
 
 }
