@@ -19,8 +19,8 @@ sourceCompatibility = 1.8
 targetCompatibility = 1.8
 
 bootJar {
-    baseName = 'gs-accessing-data-mysql'
-    version =  '0.1.0'
+    baseName = 'bank-of-java'
+    version =  project.version
 }
 
 repositories {
