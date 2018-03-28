@@ -15,9 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Controller
 @RequestMapping("/v1")
@@ -156,5 +154,31 @@ public class BankController {
     return acc;
   }
 
+  @GetMapping("/transfer")
+  @Transactional
+  public @ResponseBody Account[] transfer(
+      @RequestParam(name = "from") String fromAccId,
+      @RequestParam(name = "to") String toAccId,
+      @RequestParam double amount
+  ) throws AccountNotFoundException {
+    Account from = accountRepository.findById(fromAccId)
+        .orElseThrow(AccountNotFoundException::new);
+    Account to = accountRepository.findById(toAccId)
+        .orElseThrow(AccountNotFoundException::new);
+
+    from.setBalance(from.getBalance() - amount);
+    itemRepository.save(
+        from.getStatement().addItem("Balance transfer to #" +
+            toAccId.substring(32), -amount)
+    );
+
+    to.setBalance(to.getBalance() + amount);
+    itemRepository.save(
+        to.getStatement().addItem("Balance transfer from #" +
+            fromAccId.substring(32), -amount)
+    );
+
+    return new Account[]{from, to};
+  }
 
 }
