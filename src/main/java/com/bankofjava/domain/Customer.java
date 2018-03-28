@@ -4,10 +4,13 @@
 
 package com.bankofjava.domain;
 
+import com.bankofjava.Application;
 import com.bankofjava.Bank;
 import com.bankofjava.exception.AccountNotFoundException;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.HashMap;
@@ -116,7 +119,8 @@ public class Customer {
   }
 
   public void notifyCustomer(String text) {
-    System.out.println("New Notification - " + text);
+    Logger LOG = LoggerFactory.getLogger(Application.class);
+    LOG.info("New notification - " + text);
   }
 
   @Override

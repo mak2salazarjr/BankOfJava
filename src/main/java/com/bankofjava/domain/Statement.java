@@ -4,87 +4,87 @@
 
 package com.bankofjava.domain;
 
-import java.text.SimpleDateFormat;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * A statement class.
  */
-public class Statement extends ArrayList<StatementItem> {
 
+@Entity
+public class Statement {
+
+  @Id
+  private String id;
+
+  @OneToOne(cascade = CascadeType.ALL)
+  @MapsId
+  @JoinColumn(name = "id", nullable = false, unique = true)
+  @JsonBackReference
   private Account account;
+
+  @OneToMany(mappedBy = "statement")
+  private List<StatementItem> items = new ArrayList<>();
+
+  public Statement() {}
+
   public Statement(Account a) {
-    super();
     this.account = a;
   }
 
-  public boolean addItem(String desc, double charge) {
-    return this.add(new StatementItem(desc, charge));
+  public StatementItem addItem(String desc, double charge) {
+    StatementItem item = new StatementItem(desc, charge, this);
+    items.add(item);
+    return item;
   }
 
-  public boolean addItem(String desc, double charge, Date time) {
-    return this.add(new StatementItem(desc, charge, time));
+  public StatementItem addItem(String desc, double charge, Date time) {
+    StatementItem item = new StatementItem(desc, charge, time, this);
+    items.add(item);
+    return item;
+  }
+
+  public StatementItem getItem(int index) {
+    return items.get(index);
   }
 
   public String getDescription(int index) {
-    return this.get(index).getDescription();
+    return items.get(index).getDescription();
   }
 
   public double getCharge(int index) {
-    return this.get(index).getCharge();
+    return items.get(index).getCharge();
   }
 
   public Date getTime(int index) {
-    return this.get(index).getTime();
+    return items.get(index).getTime();
   }
 
-  public static String padRight(String s, int n) {
-    return String.format("%-" + n + "s", s);
+  public String getId() {
+    return id;
   }
 
-  public static String padLeft(String s, int n) {
-    return String.format("%" + n + "s", s);
+  public List<StatementItem> getItems() {
+    return items;
   }
 
-  public static String loopChar(char c, int n) {
-    StringBuilder builder = new StringBuilder();
-    for (int i = 0; i < n; i++) {
-      builder.append(c);
-    }
-    return builder.toString();
+  public Account getAccount() {
+    return account;
   }
 
-  @Override
-  public String toString() {
-    int maxLengthD = 0;
-    int maxLengthC = 0;
-    for (StatementItem i : this) {
-      if (i.getDescription().length() > maxLengthD) {
-        maxLengthD = i.getDescription().length();
-      }
-      if (String.format("%.2f", i.getCharge()).length() > maxLengthC) {
-        maxLengthC = Double.toString(i.getCharge()).length();
-      }
-    }
-    StringBuilder statement = new StringBuilder();
-    statement.append(account.getAccountId());
-    statement.append(" " + account.getName());
-    statement.append(System.lineSeparator());
-    statement.append(Statement.loopChar('-', maxLengthC + maxLengthD + 26));
-    statement.append(System.lineSeparator());
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-    for (int i = 0; i < this.size(); i++) {
-      statement.append(" " + i + " |");
-      statement.append(" " + Statement.padRight(this.getDescription(i), maxLengthD) + " |");
-      statement.append(" " + sdf.format(this.getTime(i)) + " |");
-      statement.append(" " + Statement.padLeft(Double.toString(this.getCharge(i)), maxLengthC) +
-          " ");
-      statement.append(System.lineSeparator());
-    }
-    statement.append("   |");
-    statement.append(" " + Statement.padRight("TOTAL BALANCE", maxLengthD) + " |");
-    statement.append(" " + account.getBalance() + " ");
-    return statement.toString();
+  public void setId(String id) {
+    this.id = id;
+  }
+
+  public void setItems(List<StatementItem> items) {
+    this.items = items;
+  }
+
+  public void setAccount(Account account) {
+    this.account = account;
   }
 }

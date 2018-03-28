@@ -5,7 +5,9 @@
 package com.bankofjava.domain;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.text.SimpleDateFormat;
@@ -34,7 +36,9 @@ public class Account {
   @JsonBackReference
   protected Customer holder;
 
-  @Transient protected Statement statement;
+  @OneToOne(mappedBy = "account", cascade = CascadeType.ALL)
+  @JsonManagedReference
+  protected Statement statement;
 
   public Account(String accountId, double initialDeposit, Customer holder, String name) {
     this.accountId = accountId;
@@ -44,9 +48,7 @@ public class Account {
     this.statement = new Statement(this);
   }
 
-  public Account() {
-    this.statement = new Statement(this);
-  }
+  public Account() { this.statement = new Statement(this); }
 
   public String getAccountId() {
     return accountId;
@@ -80,8 +82,12 @@ public class Account {
     this.holder = holder;
   }
 
+  public void setStatement(Statement statement) {
+    this.statement = statement;
+  }
+
   public void withdraw(double amount) {
-    balance -= amount;
+    setBalance(balance - amount);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     statement.addItem("Withdrawal " +
         sdf.format(Calendar.getInstance().getTime()), -amount);
@@ -93,7 +99,7 @@ public class Account {
   }
 
   public void deposit(double amount) {
-    balance += amount;
+    setBalance(balance + amount);
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     statement.addItem("Deposit " +
         sdf.format(Calendar.getInstance().getTime()), amount);
